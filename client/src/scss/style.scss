@@ -1,0 +1,65 @@
+%right-top-corner {
+  position: absolute !important;
+  top: 0px;
+  right: 0px;
+}
+
+$clear-icon-size: 24px;
+
+
+//cancel link decoration
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.content {
+  margin-top: 80px;
+}
+
+.sign-content {
+  padding: 80px;
+}
+
+body {
+  background-color: #F6F6F6;
+  margin: 0;
+}
+
+.favorite-button {
+  @extend %right-top-corner
+}
+
+.clear-button {
+  @extend %right-top-corner;
+  top: calc(50% - 24px);
+}
+
+.upload-input[type=file] {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  position: absolute;
+  z-index: -10;
+}
+
+.upload-input__label {
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.dropbox {
+  text-align: center;
+  box-sizing: border-box;
+  padding: 20px;
+  width: 100%;
+  margin: auto;
+  margin-top: 50px;
+  border: rgba(0, 0, 0, 0.25) solid 1px;
+  border-radius: 4px;
+  &:hover {
+    cursor: pointer;
+    border-color: #252930;
+  } 
+}
