@@ -25,4 +25,4 @@ const Authorization = () => (
     </Grid>
   </>
 )
-export default Authorization
+export default Authorization  

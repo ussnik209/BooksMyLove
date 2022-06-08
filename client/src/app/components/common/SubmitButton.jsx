@@ -2,13 +2,13 @@ import React from 'react'
 
 import { Button } from '@mui/material'
 
-const SubmitButton = ({children}) => (
-  <Button 
+const SubmitButton = (props) => (
+  <Button {...props}
     variant="contained"
     sx={{
       width: "200px",
     }}  
-  >{children}</Button>
+  >{props.children}</Button>
 )
 
 export default SubmitButton

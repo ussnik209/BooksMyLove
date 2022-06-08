@@ -1,11 +1,11 @@
-import { configureStore } from 'redux'
+import { configureStore } from '@reduxjs/toolkit';
 import logger from 'redux-logger'
 
-import BooksApp from '../reducers/BooksAppReducer'
+import BooksApp from '../reducers/booksAppReducer.js'
 
-const Store = configureStore({ 
-  BooksApp,
+const store = configureStore({ 
+  reducer: BooksApp,
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
 })
 
-export default Store
+export default store

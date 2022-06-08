@@ -82,7 +82,7 @@ const plugins = () => {
 module.exports = {
   context: path.resolve(__dirname, 'src'),
   mode: 'development',
-  entry: './index.jsx',
+  entry: ['babel-polyfill', './index.jsx'],
   output: {
     filename: `./${filename('js')}`,
     path: path.resolve(__dirname, distPath),
@@ -94,6 +94,11 @@ module.exports = {
     compress: true,
     hot: true,
     port: 8000,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:5000'
+      }
+    }
   },
   optimization: optimization(),
   plugins: plugins(),

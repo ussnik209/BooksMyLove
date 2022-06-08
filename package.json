@@ -12,6 +12,7 @@
   "author": "Us Nikita <ussnikita209@mail.ru>",
   "license": "ISC",
   "dependencies": {
+    "@reduxjs/toolkit": "^1.8.2",
     "bcryptjs": "^2.4.3",
     "config": "^3.3.7",
     "express": "^4.18.1",
@@ -21,6 +22,7 @@
     "mongoose": "^6.3.4"
   },
   "devDependencies": {
+    "babel-polyfill": "^6.26.0",
     "concurrently": "^7.2.1",
     "nodemon": "^2.0.16"
   }

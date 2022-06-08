@@ -9,7 +9,8 @@ const authorization = (
       isAuthorized: false,
       user: {
         id: null
-      }
+      },
+      
     }
 
     const localUser = JSON.parse(localStorage.getItem(userTitle))

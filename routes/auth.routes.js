@@ -12,7 +12,8 @@ router.post(
     check('email', 'Incorrect email').isEmail(),
     check('password', 'Minimum password length is 6 characters')
       .isLength({ min: 6}),
-
+    check('name', 'Missing required field name').exists({checkFalsy: true}),
+    check('surname', 'Missing required field surname').exists({checkFalsy: true})
   ],
   async (req, res) => {
     try {

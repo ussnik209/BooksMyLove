@@ -4,7 +4,7 @@ import { Grid, Container, Stack } from '@mui/material'
 
 import Background from '../common/Background.jsx'
 import Header from '../header/Header.jsx'
-import SignUpForm from './SignUpForm.jsx'
+import RequestingRegistrationForm from '../../containers/RequestingRegistrationForm.js'
 import AuthorizationFooter from '../authorization/AuthorizationFooter.jsx'
 
 const Registration = () => (
@@ -17,7 +17,7 @@ const Registration = () => (
       <Grid item xs={9}>
         <Container   className='sign-content'>
           <Stack maxWidth='sm' spacing={12}>
-            <SignUpForm />
+            <RequestingRegistrationForm />
             <AuthorizationFooter linkContent='sign in' linkTo='/sign-in'>Lorem ipsum, dolor sit amet consectetur adipisicing </AuthorizationFooter>
           </Stack>
         </Container>
