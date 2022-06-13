@@ -6,7 +6,8 @@ const registration = (
       name: '',
       surname: ''
     },
-    loading: false
+    loading: false,
+    error: null
   },
   action
 ) => {
@@ -23,6 +24,11 @@ const registration = (
             ...state.form,
             ...action.formInput
           }
+        }
+      case 'SET_ERROR':
+        return {
+          ...state,
+          error: action.error
         }
     default:
       return state

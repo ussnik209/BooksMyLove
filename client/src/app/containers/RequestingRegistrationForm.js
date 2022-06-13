@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 
 import request from '../functions/request.js'
-import { setLoading, updateForm } from '../actions/registration.js'
+import { setLoading, updateForm, setError } from '../actions/registration.js'
 import RegistrationForm from '../components/registration/SignUpForm.jsx'
 
 
@@ -9,7 +9,8 @@ const mapStateToProps = (
   state
 ) => ({ 
   loading: state.registration.loading,
-  form: state.registration.form
+  form: state.registration.form,
+  error: state. registration.error
 })
 
 const mapDispatchToProps = (
@@ -24,11 +25,13 @@ const mapDispatchToProps = (
     dispatch(setLoading(true))
 
     try {
-      const data = await request('/api/auth/register', 'POST', form)
-      dispatch(setLoading(false))
+      await request('/api/auth/register', 'POST', form)
       
+      dispatch(setError(null))
+      dispatch(setLoading(false))
     } catch (e) {
       console.log(e.message)
+      dispatch(setError({message: e.message}))
       dispatch(setLoading(false))
     }
 
