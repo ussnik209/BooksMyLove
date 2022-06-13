@@ -9,7 +9,7 @@ const router = Router()
 router.post(
   '/register',
   [
-    check('email', 'Incorrect email').isEmail(),
+    check('mail', 'Incorrect email').isEmail(),
     check('password', 'Minimum password length is 6 characters')
       .isLength({ min: 6}),
     check('name', 'Missing required field name').exists({checkFalsy: true}),
@@ -18,38 +18,38 @@ router.post(
   async (req, res) => {
     try {
       const errors = validationResult(req)
-
+      
       if (!errors.isEmpty()) {
         return res.status(400).json({
           errors: errors.array(),
           message: 'Invalid registration data!'
         })
       }
+      const { mail, password, name, surname } = req.body
 
-      const { email, password, name, surname } = req.body
-
-      const candidate = await User.findOne({ email })
+      const candidate = await User.findOne({ mail })
 
       if (candidate) {
-        res.status(400).json({ message: 'Such user already existing!'})
+        return res.status(400).json({ message: 'Such user already existing!'})
       }
-
-      const hashedPassword = await bcrypt(password, key)
-      const user = new User({ email, password: hashedPassword, name, surname})
+      
+      const key = 12
+      const hashedPassword = await bcrypt.hash(password, key)
+      const user = new User({ mail, password: hashedPassword, name, surname})
       
       await user.save()
-
-      res.status(201).json({message: 'User was created'})
-
-    } catch (error) {
-      res.status(500).json({ message: 'Something go wrong! Please, try again'})
+      
+      return res.status(201).json({message: 'User was created', success: true})
+      
+    } catch (e) {
+      res.status(500).json({ message: e.message})
     }
 })
 
 router.post(
   '/login',
   [
-    check('email', 'Enter correct email').normalizeEmail().isEmail(),
+    check('mail', 'Enter correct email').normalizeEmail().isEmail(),
     check('password', 'Enter password').exists()
   ],
   async (req, res) => {
@@ -63,9 +63,9 @@ router.post(
         })
       }
   
-      const { email, password } = req.body
+      const { mail, password } = req.body
   
-      const user = await User.findOne({ email})
+      const user = await User.findOne({ mail})
 
       if (!user) {
         return res.status(400).json({ message: 'User is not found!'})
@@ -80,7 +80,7 @@ router.post(
       const token = jwt.sign(
         { 
           userId: user.id,
-          userMail: user.email
+          userMail: user.mail
         },
         config.get('jwtSecret'),
         { expiresIn: '1h' }

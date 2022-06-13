@@ -3,4 +3,9 @@ const setLoading = (loading) => ({
   loading
 })
 
-export { setLoading }
+const updateForm = (formInput) => ({
+  type: 'UPDATE_FORM',
+  formInput
+})
+
+export { setLoading, updateForm }

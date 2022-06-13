@@ -8,7 +8,7 @@ const request = async (url, method = 'GET', body = null, headers = {}) => {
     const data = await response.json()
 
     if (!response.ok) {
-      throw new Error(data.errors[0].msg || 'Something goes wrong!')
+      throw new Error(data.message || 'Something goes wrong!')
     }
 
     return data

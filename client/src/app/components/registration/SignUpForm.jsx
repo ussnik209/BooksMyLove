@@ -16,23 +16,24 @@ import SubmitButton from '../common/SubmitButton.jsx'
 const SignUpForm = ({
   changeHandler,
   registerHandler,
-  loading
+  loading,
+  form
 }) => (
   <Box component='form'>
-    {console.log(loading)}
     <Stack spacing={6}>
       <Stack spacing={2}>
         <Subtitle>Sign up your account</Subtitle>
-        <UserInput label='Name' onCHange={changeHandler}/>
-        <UserInput label='Surname' onCHange={changeHandler}/>
-        <UserInput label='Email Address' onCHange={changeHandler}/>
-        <UserInput label='Password' onCHange={changeHandler}/>
-        <UserInput label='Confirm password' onCHange={changeHandler}/>
+        <UserInput label='Name' name='name' onChange={changeHandler}/>
+        <UserInput label='Surname' name='surname' onChange={changeHandler}/>
+        <UserInput label='Email' name='mail' onChange={changeHandler}/>
+        <UserInput label='Password' name='password' onChange={changeHandler}/>
+        <UserInput label='Confirm password' onChange={changeHandler}/>
       </Stack>
       <Stack spacing={2}>
         <FormControlLabel control={<Checkbox />} label='Remember me'/>
         <Stack direction='row' spacing={2}>
-          <SubmitButton onClick={registerHandler}>
+          <SubmitButton onClick={() => { 
+            registerHandler(form)}}>
             Sign up
           </SubmitButton>
           <Fade in={loading}>

@@ -1,30 +1,34 @@
 import { connect } from 'react-redux'
 
 import request from '../functions/request.js'
-import { setLoading } from '../actions/registration.js'
+import { setLoading, updateForm } from '../actions/registration.js'
 import RegistrationForm from '../components/registration/SignUpForm.jsx'
 
 
 const mapStateToProps = (
   state
 ) => ({ 
-  loading: state.registration.loading
+  loading: state.registration.loading,
+  form: state.registration.form
 })
 
 const mapDispatchToProps = (
   dispatch
 ) => ({
   changeHandler: event => {
-    setForm({ ...from, [event.target.name]: event.target.value })
+    dispatch(
+      updateForm({[event.target.name]: event.target.value })
+    )
   },
-  registerHandler: async () => {
+  registerHandler: async (form) => {
     dispatch(setLoading(true))
 
     try {
-      const data = await request('/api/auth/register', 'POST', {email: '', password: ''})
+      const data = await request('/api/auth/register', 'POST', form)
       dispatch(setLoading(false))
+      
     } catch (e) {
-      console.log('error: ' + e.message)
+      console.log(e.message)
       dispatch(setLoading(false))
     }
 

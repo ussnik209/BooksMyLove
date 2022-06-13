@@ -2,12 +2,10 @@ import React from 'react'
 
 import { TextField } from '@mui/material'
 
-const UserInput = ({label, defaultValue='', onChange}) => (
+const UserInput = (props) => (
   <TextField
+    {...props}
     id='outlined-helperText'
-    label={label}
-    defaultValue={defaultValue}
-    onChange={onChange}
     fullWidth
   />
 )
