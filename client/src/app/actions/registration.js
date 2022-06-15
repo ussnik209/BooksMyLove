@@ -8,9 +8,14 @@ const updateForm = (formInput) => ({
   formInput
 })
 
-const setError = (error) => ({
-  type: 'SET_ERROR',
+const setServerError = (error) => ({
+  type: 'SET_SERVER_ERROR',
   error: error
 })
 
-export { setLoading, updateForm, setError }
+const setValidationErrors = (errors) => ({
+  type: 'SET_VALIDATION_ERRORS',
+  errors: errors
+})
+
+export { setLoading, updateForm, setServerError, setValidationErrors }

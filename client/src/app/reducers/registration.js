@@ -3,11 +3,13 @@ const registration = (
     form: {
       mail: '',
       password: '',
+      confirmPassword: '',
       name: '',
       surname: ''
     },
     loading: false,
-    error: null
+    serverError: null,
+    validationErrors: []
   },
   action
 ) => {
@@ -25,10 +27,15 @@ const registration = (
             ...action.formInput
           }
         }
-      case 'SET_ERROR':
+      case 'SET_SERVER_ERROR':
         return {
           ...state,
-          error: action.error
+          serverError: action.error
+        }
+      case 'SET_VALIDATION_ERRORS':
+        return {
+          ...state,
+          validationErrors: action.errors
         }
     default:
       return state

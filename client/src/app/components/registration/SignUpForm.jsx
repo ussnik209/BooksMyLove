@@ -17,9 +17,11 @@ import Notification from '../common/Notification.jsx'
 const SignUpForm = ({
   changeHandler,
   registerHandler,
+  validateForm,
   loading,
   form,
-  error
+  serverError,
+  validationErrors
 }) => {
   const [open, setOpen] = React.useState(false)
 
@@ -35,23 +37,53 @@ const SignUpForm = ({
     setOpen(false)
   }
 
+  const nameError = validationErrors.find(el => el.target === 'name')
+  const surnameError = validationErrors.find(el => el.target === 'surname')
+  const mailError = validationErrors.find(el => el.target === 'mail')
+  const passwordError = validationErrors.find(el => el.target === 'password')
+  const confirmPasswordError = validationErrors.find(el => el.target === 'confirmPassword')
+
   return (
     <Box component='form'>
       <Stack spacing={6}>
         <Stack spacing={2}>
           <Subtitle>Sign up your account</Subtitle>
-          <UserInput label='Name' name='name' onChange={changeHandler}/>
-          <UserInput label='Surname' name='surname' onChange={changeHandler}/>
-          <UserInput label='Email' name='mail' onChange={changeHandler}/>
-          <UserInput label='Password' name='password' onChange={changeHandler}/>
-          <UserInput label='Confirm password' onChange={changeHandler}/>
+          <UserInput label='Name' name='name' onChange={changeHandler} 
+            required
+            error={!!nameError}
+            helperText={nameError?.message}
+          />
+          <UserInput label='Surname' name='surname' onChange={changeHandler} 
+            required            
+            error={!!surnameError}
+            helperText={surnameError?.message}
+          />
+          <UserInput label='Email' name='mail' onChange={changeHandler} 
+            required
+            error={!!mailError}
+            helperText={mailError?.message}
+            />
+          <UserInput label='Password' name='password' onChange={changeHandler}
+            required
+            error={!!passwordError}
+            helperText={passwordError?.message}
+            type='password'
+          />
+          <UserInput label='Confirm password' name='confirmPassword' onChange={changeHandler} 
+            required
+            error={!!confirmPasswordError}
+            helperText={confirmPasswordError?.message}
+            type='password'
+          />
         </Stack>
         <Stack spacing={2}>
           <FormControlLabel control={<Checkbox />} label='Remember me'/>
           <Stack direction='row' spacing={2}>
             <SubmitButton onClick={async () => { 
-              await registerHandler(form)
-              handleOpenNotification()
+              if (validateForm(form)) {
+                await registerHandler(form)
+                handleOpenNotification()
+              }
             }}>
               Sign up
             </SubmitButton>
@@ -64,9 +96,9 @@ const SignUpForm = ({
       <Notification 
         open={open} 
         handleClose={handleCloseNotification} 
-        type={error ? 'error' : 'success'}
+        type={serverError ? 'error' : 'success'}
       >
-        {error ? error.message : 'You registered successful!'}
+        {serverError ? serverError.message : 'You registered successful!'}
       </Notification>
     </Box>
   )
