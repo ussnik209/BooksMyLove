@@ -14,9 +14,10 @@ import UserInput from '../common/UserInput.jsx'
 import SubmitButton from '../common/SubmitButton.jsx'
 import Notification from '../common/Notification.jsx'
 
-const SignUpForm = ({
+const SignInForm = ({
   changeHandler,
-  registerHandler,
+  loginHandler,
+  rememberMeHandler,
   validateForm,
   loading,
   form,
@@ -39,53 +40,35 @@ const SignUpForm = ({
 
   const mailError = validationErrors?.find(el => el.target === 'mail')
   const passwordError = validationErrors?.find(el => el.target === 'password')
-  const nameError = validationErrors?.find(el => el.target === 'name')
-  const surnameError = validationErrors?.find(el => el.target === 'surname')
-  const confirmPasswordError = validationErrors?.find(el => el.target === 'confirmPassword')
 
   return (
     <Box component='form'>
       <Stack spacing={6}>
         <Stack spacing={2}>
-          <Subtitle>Sign up your account</Subtitle>
-          <UserInput label='Name' name='name' onChange={changeHandler} 
-            required
-            error={!!nameError}
-            helperText={nameError?.message}
-          />
-          <UserInput label='Surname' name='surname' onChange={changeHandler} 
-            required            
-            error={!!surnameError}
-            helperText={surnameError?.message}
-          />
-          <UserInput label='Email' name='mail' onChange={changeHandler} 
+          <Subtitle>Sign in your account</Subtitle>
+          <UserInput label='Email Address' name='mail' onChange={changeHandler} 
+            type='email'
             required
             error={!!mailError}
             helperText={mailError?.message}
-            />
-          <UserInput label='Password' name='password' onChange={changeHandler}
+          />
+          <UserInput label='Password' name='password' onChange={changeHandler} 
+            type='password'
             required
             error={!!passwordError}
             helperText={passwordError?.message}
-            type='password'
-          />
-          <UserInput label='Confirm password' name='confirmPassword' onChange={changeHandler} 
-            required
-            error={!!confirmPasswordError}
-            helperText={confirmPasswordError?.message}
-            type='password'
           />
         </Stack>
         <Stack spacing={2}>
-          {/* <FormControlLabel control={<Checkbox />} label='Remember me'/> */}
+          <FormControlLabel control={<Checkbox onChange={rememberMeHandler}/>} label='Remember me'/>
           <Stack direction='row' spacing={2}>
             <SubmitButton onClick={async () => { 
               if (validateForm(form)) {
-                await registerHandler(form)
+                await loginHandler(form)
                 handleOpenNotification()
               }
             }}>
-              Sign up
+              Login
             </SubmitButton>
             <Fade in={loading}>
               <CircularProgress size='2rem'/>
@@ -98,10 +81,10 @@ const SignUpForm = ({
         handleClose={handleCloseNotification} 
         type={serverError ? 'error' : 'success'}
       >
-        {serverError ? serverError.message : 'You registered successful!'}
+        {serverError ? serverError.message : 'You logged in successful!'}
       </Notification>
     </Box>
   )
 }
 
-export default SignUpForm
+export default SignInForm

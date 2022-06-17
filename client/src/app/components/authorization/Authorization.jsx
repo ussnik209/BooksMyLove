@@ -4,7 +4,7 @@ import { Grid, Container, Stack } from '@mui/material'
 
 import Background from '../common/Background.jsx'
 import Header from '../header/Header.jsx'
-import LoginForm from './LoginForm.jsx'
+import RequestingLoginForm from '../../containers/RequestingLoginForm.js'
 import AuthorizationFooter from './AuthorizationFooter.jsx'
 
 const Authorization = () => (
@@ -17,7 +17,7 @@ const Authorization = () => (
       <Grid item xs={9}>
         <Container   className='sign-content'>
           <Stack maxWidth='sm' spacing={12}>
-            <LoginForm />
+            <RequestingLoginForm />
             <AuthorizationFooter linkContent='sign up' linkTo='/sign-up'>Haven't an account yet?  </AuthorizationFooter>
           </Stack>
         </Container>

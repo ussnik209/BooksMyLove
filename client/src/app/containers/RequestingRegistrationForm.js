@@ -1,17 +1,17 @@
 import { connect } from 'react-redux'
 
 import request from '../functions/request.js'
-import { setLoading, updateForm, setServerError, setValidationErrors } from '../actions/registration.js'
+import { setLoading, updateForm, setServerError, setValidationErrors } from '../actions/authorization.js'
 import RegistrationForm from '../components/registration/SignUpForm.jsx'
 
 
 const mapStateToProps = (
   state
 ) => ({ 
-  loading: state.registration.loading,
-  form: state.registration.form,
-  serverError: state.registration.serverError,
-  validationErrors: state.registration.validationErrors
+  form: state.authorization.form,
+  loading: state.authorization.loading,
+  serverError: state.authorization.serverError,
+  validationErrors: state.authorization.validationErrors
 })
 
 const mapDispatchToProps = (

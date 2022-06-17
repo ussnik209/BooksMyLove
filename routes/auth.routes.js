@@ -33,7 +33,7 @@ router.post(
         return res.status(400).json({ message: 'Such user already existing!'})
       }
       
-      const key = 12
+      const key = config.get('auth').key
       const hashedPassword = await bcrypt.hash(password, key)
       const user = new User({ mail, password: hashedPassword, name, surname})
       
@@ -42,7 +42,7 @@ router.post(
       return res.status(201).json({message: 'User was created', success: true})
       
     } catch (e) {
-      res.status(500).json({ message: e.message})
+      return res.status(500).json({ message: e.message})
     }
 })
 
@@ -82,14 +82,14 @@ router.post(
           userId: user.id,
           userMail: user.mail
         },
-        config.get('jwtSecret'),
+        config.get('auth').jwtSecret,
         { expiresIn: '1h' }
       )
 
-      res.json({ token, userId: user.id })
+      return res.json({ token, userId: user.id })
   
-    } catch (error) {
-      res.status(500).json({ message: 'Something go wrong! Please, try again'})
+    } catch (e) {
+      return res.status(500).json({ message: e.message})
     }
 })
 

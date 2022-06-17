@@ -1,57 +1,92 @@
 import { localStorageUser as userTitle } from '../constants/constants.js' 
 
-const authorization = ( 
-  state,
-  action  
+const registration = (
+  state = {
+    form: {
+      mail: '',
+      password: '',
+      confirmPassword: '',
+      name: '',
+      surname: ''
+    },
+    loading: false,
+    serverError: null,
+    validationErrors: [],
+    isAuthorized: false,
+    user: {
+      id: null
+    },
+    rememberMe: false
+  },
+  action
 ) => {
-  if (!state) {
+  const localUser = JSON.parse(localStorage.getItem(userTitle))
+
+  if (localUser) {
     state = {
-      isAuthorized: false,
+      ...state,
+      isAuthorized: true,
       user: {
-        id: null
-      },
-      
-    }
-
-    const localUser = JSON.parse(localStorage.getItem(userTitle))
-
-    if (localUser) {
-      state = {
-        isAuthorized: true,
-        user: {
-          id: localUser.userId
-        }
+        id: localUser.userId
       }
     }
   }
 
   switch (action.type) {
-    case 'SIGN_IN':
-      localStorage.setItem(
-        userTitle,
-        JSON.stringify({
-          token: action.token,
-          userId: action.userId
-      }))
-
-      return {
+    case 'SET_LOADING':
+      return { 
         ...state,
-        isAuthorized: true,
-        user: { id: action.userId }
+        loading: action.loading
       }
-    case 'SIGN_OUT':
-      localStorage.removeItem(userTitle)
-
-      return {
-        ...state,
-        isAuthorized: false,
-        user: { 
-          id: null
+      case 'UPDATE_FORM':
+        return {
+          ...state,
+          form: {
+            ...state.form,
+            ...action.formInput
+          }
         }
-      }
+      case 'SET_SERVER_ERROR':
+        return {
+          ...state,
+          serverError: action.error
+        }
+      case 'SET_VALIDATION_ERRORS':
+        return {
+          ...state,
+          validationErrors: action.errors
+        }
+      case 'SIGN_IN':
+        localStorage.setItem(
+          userTitle,
+          JSON.stringify({
+            token: action.token,
+            userId: action.userId
+        }))
+  
+        return {
+          ...state,
+          isAuthorized: true,
+          user: { id: action.userId }
+        }
+      case 'SIGN_OUT':
+        localStorage.removeItem(userTitle)
+  
+        return {
+          ...state,
+          isAuthorized: false,
+          user: { 
+            id: null
+          }
+        }
+      case 'TOGGLE_REMEMBER_ME':
+        return {
+          ...state,
+          rememberMe: !state.rememberMe
+        }
     default:
       return state
   }
 }
 
-export default authorization
+export default registration
