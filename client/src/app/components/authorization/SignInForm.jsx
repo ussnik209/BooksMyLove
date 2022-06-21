@@ -1,4 +1,5 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import { 
   Box,
@@ -25,6 +26,8 @@ const SignInForm = ({
   validationErrors
 }) => {
   const [open, setOpen] = React.useState(false)
+  const navigate = useNavigate()
+
 
   const handleOpenNotification = () => {
     setOpen(true)
@@ -66,6 +69,7 @@ const SignInForm = ({
               if (validateForm(form)) {
                 await loginHandler(form)
                 handleOpenNotification()
+                setTimeout(() => navigate('/'), 2500)
               }
             }}>
               Login
@@ -81,7 +85,7 @@ const SignInForm = ({
         handleClose={handleCloseNotification} 
         type={serverError ? 'error' : 'success'}
       >
-        {serverError ? serverError.message : 'You logged in successful!'}
+        {serverError ? serverError.message : 'You logged in successful and will navigate to homepage after a few seconds.'}
       </Notification>
     </Box>
   )

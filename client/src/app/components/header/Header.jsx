@@ -5,10 +5,10 @@ import { AppBar, Toolbar, Box } from '@mui/material'
 
 import Logo from './Logo.jsx'
 import SearchBar from './SearchBar.jsx'
-import UserMenu from './UserMenu.jsx'
+import ActiveUserMenu from '../../containers/UserMenu.js'
 import AuthorizationLinks from './AuthorizationLinks.jsx'
 
-const Header = ({isAuthorized = false}) => (
+const Header = ({isAuthorized}) => (
   <Box sx={{ flexGrow: 1 }}>
     <AppBar position='sticky'>
       <Toolbar sx={{ 
@@ -19,7 +19,7 @@ const Header = ({isAuthorized = false}) => (
           <Logo content='BooksMyLove' />
         </NavLink>
         <SearchBar />
-        {isAuthorized ? <UserMenu /> : <AuthorizationLinks />}
+        {isAuthorized ? <ActiveUserMenu /> : <AuthorizationLinks />}
       </Toolbar>
     </AppBar>
   </Box>

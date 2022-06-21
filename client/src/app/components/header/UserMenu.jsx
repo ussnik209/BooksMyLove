@@ -3,7 +3,7 @@ import React from 'react'
 import { IconButton, Menu, MenuItem, Divider } from '@mui/material'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 
-const UserMenu = () => {
+const UserMenu = ({signOut}) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const isMenuOpen = Boolean(anchorEl);
@@ -37,7 +37,7 @@ const UserMenu = () => {
       <Divider />
       <MenuItem onClick={handleMenuClose}>Add book</MenuItem>
       <Divider />
-      <MenuItem onClick={handleMenuClose}>Sign out</MenuItem>
+      <MenuItem onClick={signOut}>Sign out</MenuItem>
     </Menu>
   )
 
