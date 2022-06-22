@@ -1,22 +1,24 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import { IconButton, Menu, MenuItem, Divider } from '@mui/material'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 
-const UserMenu = ({signOut}) => {
-  const [anchorEl, setAnchorEl] = React.useState(null);
+const UserMenu = ({signOut, toProfile, toAddBook}) => {
+  const [anchorEl, setAnchorEl] = React.useState(null)
+  const navigate = useNavigate()
 
-  const isMenuOpen = Boolean(anchorEl);
+  const isMenuOpen = Boolean(anchorEl)
 
   const handleProfileMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
+    setAnchorEl(event.currentTarget)
   }
 
   const handleMenuClose = () => {
-    setAnchorEl(null);
+    setAnchorEl(null)
   }
 
-  const menuId = 'primary-search-account-menu';
+  const menuId = 'primary-search-account-menu'
   const renderMenu = (
     <Menu
       anchorEl={anchorEl}
@@ -33,9 +35,15 @@ const UserMenu = ({signOut}) => {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+      <MenuItem onClick={() => {
+        handleMenuClose()
+        toProfile(navigate)
+      }}>Profile</MenuItem>
       <Divider />
-      <MenuItem onClick={handleMenuClose}>Add book</MenuItem>
+      <MenuItem onClick={() => {
+        handleMenuClose()
+        toAddBook(navigate)
+      }}>Add book</MenuItem>
       <Divider />
       <MenuItem onClick={signOut}>Sign out</MenuItem>
     </Menu>

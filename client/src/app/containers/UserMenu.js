@@ -11,7 +11,9 @@ const mapStateToProps = (
 const mapDispatchToProps = (
   dispatch
 ) => ({
-  signOut: () => dispatch(signOut())
+  signOut: () => dispatch(signOut()),
+  toProfile: (navigate) => navigate('/user'),
+  toAddBook: (navigate) => navigate('/add-book'),
 })
 
 const ActiveUserMenu = connect(
