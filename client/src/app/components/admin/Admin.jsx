@@ -7,11 +7,11 @@ import EnhancedTable from './EnhancedTable.jsx'
 const Admin = () => (
   <Stack spacing={2}>
     <Stack spacing={2}>
-      <EnhancedTable>Users</EnhancedTable>
+      <EnhancedTable title='User'></EnhancedTable>
       
     </Stack>
     <Stack spacing={2}>
-      <EnhancedTable>Books</EnhancedTable>
+      <EnhancedTable title='Books'></EnhancedTable>
     </Stack>
 
   </Stack>

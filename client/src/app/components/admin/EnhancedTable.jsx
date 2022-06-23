@@ -20,24 +20,21 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import { visuallyHidden } from '@mui/utils'
 
 import LockButton from './LockButton.jsx'
+import { TramRounded } from '@mui/icons-material'
 
-function createData(name, surname, email, locked) {
+function createData(name, surname, email, role, locked) {
   return {
     name,
     surname,
     email,
+    role,
     locked,
   }
 }
 
 const rows = [
-  createData('John', 'Colt', 'email@mail.com', false),
-  createData('Day', 'Colt', 'email@mail.com', false),
-  createData('May', 'Dolt', 'email@mail.com', false),
-  createData('Col', 'Dolt', 'email@mail.com', false),
-  createData('Steve', 'Dolt', 'email@mail.com', false),
-  createData('Bohn', 'Dolt', 'email@mail.com', false),
-  createData('Urohn', 'Dolt', 'email@mail.com', true),
+  createData('John', 'Colt', 'email@mail.com', 'user', false),
+  createData('Day', 'Bolt', 'email@mail.com', 'author', true),
 ]
 
 function descendingComparator(a, b, orderBy) {
@@ -74,6 +71,12 @@ const headCells = [
     disablePadding: false,
     label: 'email',
     sortable: true,
+  },
+  {
+    id: 'role',
+    disablePadding: false,
+    label: 'role',
+    sortable: true
   },
   {
     id: 'action',
@@ -192,15 +195,12 @@ EnhancedTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
 }
 
-const EnhancedTable = ({children}) => {
+const EnhancedTable = ({title}) => {
   const [order, setOrder] = React.useState('asc')
   const [orderBy, setOrderBy] = React.useState('surname')
   const [selected, setSelected] = React.useState([])
   const [page, setPage] = React.useState(0)
-  const [dense, setDense] = React.useState(false)
   const [rowsPerPage, setRowsPerPage] = React.useState(5)
-
-  const title = children
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc'
@@ -306,6 +306,7 @@ const EnhancedTable = ({children}) => {
                       </TableCell>
                       <TableCell align='left'>{row.surname}</TableCell>
                       <TableCell align='left'>{row.email}</TableCell>
+                      <TableCell align='left'>{row.role}</TableCell>
                       <TableCell align='left'><LockButton locked={true} /></TableCell>
                     </TableRow>
                   )
@@ -313,7 +314,7 @@ const EnhancedTable = ({children}) => {
               {emptyRows > 0 && (
                 <TableRow
                   style={{
-                    height: (dense ? 33 : 53) * emptyRows,
+                    height: 53 * emptyRows,
                   }}
                 >
                   <TableCell colSpan={6} />
