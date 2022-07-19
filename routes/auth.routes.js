@@ -3,7 +3,9 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const { check, validationResult } = require('express-validator')
 const User = require('../models/Users.js')
+const Admin = require('../models/Admin.js')
 const config = require('config')
+const { create } = require('../models/Users.js')
 const router = Router()
 
 router.post(
@@ -64,34 +66,47 @@ router.post(
       }
   
       const { mail, password } = req.body
-  
-      const user = await User.findOne({ mail})
 
-      if (!user) {
-        return res.status(400).json({ message: 'User is not found!'})
+      const admin = await Admin.findOne({ mail })
+      const user = await User.findOne({ mail })
+
+      const verificationResult = await verifyUser(admin || user, password)
+
+      if (!verificationResult.isVerified) {
+        return res.status(400).json({message: verificationResult.message})
       }
 
-      const isMatch = await bcrypt.compare(password, user.password)
+      const token = createToken(admin || user)
 
-      if (!isMatch) {
-        return res.status(400).json({ message: 'Invalid password! Please, try again'})
-      }
-
-      const token = jwt.sign(
-        { 
-          userId: user.id,
-          userMail: user.mail
-        },
-        config.get('auth').jwtSecret,
-        { expiresIn: '1h' }
-      )
-
-      return res.json({ token, userId: user.id })
-  
+      return res.json({token, userId: admin ? admin.id : user.id, isAdmin: !!admin})        
     } catch (e) {
       return res.status(500).json({ message: e.message})
     }
 })
 
+const verifyUser = async (user, password) => {
+      if (!user) {
+        return { message: 'User is not found!', isVerified: false}
+      }
+
+      const isMatch = await bcrypt.compare(password, user.password)
+
+      if (!isMatch) {
+        return { message: 'Invalid password! Please, try again', isVerified: false }
+      }
+
+      return { isVerified: true }
+}
+
+const createToken = (user) => {
+  return jwt.sign(
+    { 
+      userId: user.id,
+      userMail: user.mail
+    },
+    config.get('auth').jwtSecret,
+    { expiresIn: '1h' }
+  )
+}
 
 module.exports = router

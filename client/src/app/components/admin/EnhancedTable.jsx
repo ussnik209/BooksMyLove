@@ -20,21 +20,20 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import { visuallyHidden } from '@mui/utils'
 
 import LockButton from './LockButton.jsx'
-import { TramRounded } from '@mui/icons-material'
 
-function createData(name, surname, email, role, locked) {
+function createData(name, surname, email, isAuthor, locked) {
   return {
     name,
     surname,
     email,
-    role,
+    isAuthor,
     locked,
   }
 }
 
 const rows = [
-  createData('John', 'Colt', 'email@mail.com', 'user', false),
-  createData('Day', 'Bolt', 'email@mail.com', 'author', true),
+  createData('John', 'Colt', 'email@mail.com', false, false),
+  createData('Day', 'Bolt', 'email@mail.com', true, true),
 ]
 
 function descendingComparator(a, b, orderBy) {
@@ -73,9 +72,9 @@ const headCells = [
     sortable: true,
   },
   {
-    id: 'role',
+    id: 'isAuthor',
     disablePadding: false,
-    label: 'role',
+    label: 'Author',
     sortable: true
   },
   {
@@ -246,6 +245,10 @@ const EnhancedTable = ({title}) => {
     setPage(0)
   }
 
+  const handleIsAuthorClick = (event) => {
+    event.stopPropagation()
+  }
+
   const isSelected = (name) => selected.indexOf(name) !== -1
 
   // Avoid a layout jump when reaching the last page with empty rows.
@@ -306,7 +309,9 @@ const EnhancedTable = ({title}) => {
                       </TableCell>
                       <TableCell align='left'>{row.surname}</TableCell>
                       <TableCell align='left'>{row.email}</TableCell>
-                      <TableCell align='left'>{row.role}</TableCell>
+                      <TableCell align='left'>{
+                        <Checkbox onClick={handleIsAuthorClick}/>
+                      }</TableCell>
                       <TableCell align='left'><LockButton locked={true} /></TableCell>
                     </TableRow>
                   )
