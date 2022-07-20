@@ -21,21 +21,6 @@ import { visuallyHidden } from '@mui/utils'
 
 import LockButton from './LockButton.jsx'
 
-function createData(name, surname, email, isAuthor, locked) {
-  return {
-    name,
-    surname,
-    email,
-    isAuthor,
-    locked,
-  }
-}
-
-const rows = [
-  createData('John', 'Colt', 'email@mail.com', false, false),
-  createData('Day', 'Bolt', 'email@mail.com', true, true),
-]
-
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
     return -1
@@ -52,41 +37,8 @@ function getComparator(order, orderBy) {
     : (a, b) => -descendingComparator(a, b, orderBy)
 }
 
-const headCells = [
-  {
-    id: 'name',
-    disablePadding: true,
-    label: 'name',
-    sortable: true,
-  },
-  {
-    id: 'surname',
-    disablePadding: false,
-    label: 'surname',
-    sortable: true,
-  },
-  {
-    id: 'email',
-    disablePadding: false,
-    label: 'email',
-    sortable: true,
-  },
-  {
-    id: 'isAuthor',
-    disablePadding: false,
-    label: 'Author',
-    sortable: true
-  },
-  {
-    id: 'action',
-    disablePadding: false,
-    label: 'action',
-    sortable: false,
-  },
-]
-
 function EnhancedTableHead(props) {
-  const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } =
+  const { headCells, onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } =
     props
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property)
@@ -136,6 +88,7 @@ function EnhancedTableHead(props) {
 }
 
 EnhancedTableHead.propTypes = {
+  headCells: PropTypes.array.isRequired,
   numSelected: PropTypes.number.isRequired,
   onRequestSort: PropTypes.func.isRequired,
   onSelectAllClick: PropTypes.func.isRequired,
@@ -194,9 +147,9 @@ EnhancedTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
 }
 
-const EnhancedTable = ({title}) => {
+const EnhancedTable = ({title, rows, headCells}) => {
   const [order, setOrder] = React.useState('asc')
-  const [orderBy, setOrderBy] = React.useState('surname')
+  const [orderBy, setOrderBy] = React.useState('name')
   const [selected, setSelected] = React.useState([])
   const [page, setPage] = React.useState(0)
   const [rowsPerPage, setRowsPerPage] = React.useState(5)
@@ -266,6 +219,7 @@ const EnhancedTable = ({title}) => {
             size='medium'
           >
             <EnhancedTableHead
+              headCells={headCells}
               numSelected={selected.length}
               order={order}
               orderBy={orderBy}
@@ -302,16 +256,16 @@ const EnhancedTable = ({title}) => {
                       <TableCell
                         component='th'
                         id={labelId}
+                        align='left'
                         scope='row'
-                        padding='none'
                       >
                         {row.name}
                       </TableCell>
                       <TableCell align='left'>{row.surname}</TableCell>
                       <TableCell align='left'>{row.email}</TableCell>
-                      <TableCell align='left'>{
+                      <TableCell align='left'>
                         <Checkbox onClick={handleIsAuthorClick}/>
-                      }</TableCell>
+                      </TableCell>
                       <TableCell align='left'><LockButton locked={true} /></TableCell>
                     </TableRow>
                   )
