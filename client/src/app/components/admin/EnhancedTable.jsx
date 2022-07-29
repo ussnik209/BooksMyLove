@@ -19,8 +19,6 @@ import Tooltip from '@mui/material/Tooltip'
 import DeleteIcon from '@mui/icons-material/Delete'
 import { visuallyHidden } from '@mui/utils'
 
-import LockButton from './LockButton.jsx'
-
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
     return -1
@@ -261,12 +259,11 @@ const EnhancedTable = ({title, rows, headCells}) => {
                       >
                         {row.name}
                       </TableCell>
-                      <TableCell align='left'>{row.surname}</TableCell>
-                      <TableCell align='left'>{row.email}</TableCell>
-                      <TableCell align='left'>
-                        <Checkbox onClick={handleIsAuthorClick}/>
-                      </TableCell>
-                      <TableCell align='left'><LockButton locked={true} /></TableCell>
+                        {
+                          Object.values(row).slice(1).map((field, index) =>{
+                            return <TableCell key={index} align='left'>{field}</TableCell>
+                          })
+                        }
                     </TableRow>
                   )
                 })}

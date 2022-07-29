@@ -3,6 +3,8 @@ import React from 'react'
 import { Checkbox } from '@mui/material'
 
 import EnhancedTable from './EnhancedTable.jsx'
+import LockButton from './LockButton.jsx'
+
 
 
 const UserTable = (props) => {
@@ -26,13 +28,13 @@ const UserTable = (props) => {
       'Colt', 
       'email@mail.com',
       <Checkbox checked={false} onClick={handleIsAuthorClick}/>,
-      false),
+      <LockButton locked={false} />),
     createData(
       'Day', 
       'Bolt', 
       'email@mail.com', 
       <Checkbox checked={true} onClick={handleIsAuthorClick}/>,
-      true),
+      <LockButton locked={true} />),
   ] 
   
   const headCells = [

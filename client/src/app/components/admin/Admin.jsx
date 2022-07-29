@@ -3,7 +3,7 @@ import React from 'react'
 import { Stack } from '@mui/material'
 
 import UserTable from './UserTable.jsx'
-import EnhancedTable from './EnhancedTable.jsx'
+import BookTable from './BookTable.jsx'
 
 const Admin = () => (
   <Stack spacing={2}>
@@ -12,7 +12,7 @@ const Admin = () => (
       
     </Stack>
     <Stack spacing={2}>
-      {/* <EnhancedTable title='Books'></EnhancedTable> */}
+      <BookTable title='Books'></BookTable>
     </Stack>
 
   </Stack>
