@@ -35,6 +35,48 @@ const UserTable = (props) => {
       'email@mail.com', 
       <Checkbox checked={true} onClick={handleIsAuthorClick}/>,
       <LockButton locked={true} />),
+    createData(
+      'Day', 
+      'Bolt', 
+      'email@mail.com', 
+      <Checkbox checked={true} onClick={handleIsAuthorClick}/>,
+      <LockButton locked={true} />),
+    createData(
+      'Day', 
+      'Bolt', 
+      'email@mail.com', 
+      <Checkbox checked={true} onClick={handleIsAuthorClick}/>,
+      <LockButton locked={true} />),
+    createData(
+      'Day', 
+      'Bolt', 
+      'email@mail.com', 
+      <Checkbox checked={true} onClick={handleIsAuthorClick}/>,
+      <LockButton locked={true} />),
+    createData(
+      'Day', 
+      'Bolt', 
+      'email@mail.com', 
+      <Checkbox checked={true} onClick={handleIsAuthorClick}/>,
+      <LockButton locked={true} />),
+    createData(
+      'Day', 
+      'Bolt', 
+      'email@mail.com', 
+      <Checkbox checked={true} onClick={handleIsAuthorClick}/>,
+      <LockButton locked={true} />),
+    createData(
+      'Day', 
+      'Bolt', 
+      'email@mail.com', 
+      <Checkbox checked={true} onClick={handleIsAuthorClick}/>,
+      <LockButton locked={true} />),
+    createData(
+      'Day', 
+      'Bolt', 
+      'email@mail.com', 
+      <Checkbox checked={true} onClick={handleIsAuthorClick}/>,
+      <LockButton locked={true} />),
   ] 
   
   const headCells = [

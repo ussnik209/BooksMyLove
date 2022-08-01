@@ -1,5 +1,5 @@
 const setLoading = (loading) => ({
-  type: 'SET_LOADING',
+  type: 'SET_AUTHORIZATION_LOADING',
   loading
 })
 

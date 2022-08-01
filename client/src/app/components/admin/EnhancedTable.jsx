@@ -196,10 +196,6 @@ const EnhancedTable = ({title, rows, headCells}) => {
     setPage(0)
   }
 
-  const handleIsAuthorClick = (event) => {
-    event.stopPropagation()
-  }
-
   const isSelected = (name) => selected.indexOf(name) !== -1
 
   // Avoid a layout jump when reaching the last page with empty rows.
@@ -239,7 +235,7 @@ const EnhancedTable = ({title, rows, headCells}) => {
                       role='checkbox'
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={row.name}
+                      key={index}
                       selected={isItemSelected}
                     >
                       <TableCell padding='checkbox'>

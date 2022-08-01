@@ -1,19 +1,30 @@
 import React from 'react'
 
-import { Grid } from '@mui/material'
+import { CircularProgress, Grid, Box } from '@mui/material'
 
-import Profile from './profile/Profile.jsx'
 import Favorite from './favorite/Favorite.jsx'
+import PersonalizedProfile from '../../containers/PersonalizedProfile.js'
+import LoadingCircle from '../common/LoadingCircle.jsx'
 
-const UserPage = () => (
-  <Grid container spacing={10}>
-    <Grid item xs={12}>
-      <Profile />
+const UserPage = ({isLoading, isAuth, fetchUserData, userId}) => {
+  if (isAuth) fetchUserData(userId) 
+
+  return (
+    <Grid container spacing={10}>
+      <Grid item xs={12}>
+        {
+          isLoading ? <LoadingCircle size='10rem' />
+          : <PersonalizedProfile />
+        }
+      </Grid>
+      <Grid item xs={12}>
+      {
+          isLoading ? <LoadingCircle size='10rem'/>
+          : <Favorite />
+        }
+      </Grid>
     </Grid>
-    <Grid item xs={12}>
-      <Favorite />
-    </Grid>
-  </Grid>
-)
+  )
+}
 
 export default UserPage
